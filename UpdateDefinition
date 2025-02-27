@@ -1,0 +1,89 @@
+#can be run from the python interpreter in ArcPro.
+from arcgis.gis import GIS
+
+# Authenticate
+gis = GIS("https://www.arcgis.com", "username", "password")
+
+# Get the Feature Service item
+fs_item = gis.content.get("replace_with_itemID")  # Replace with Hosted Feature Service ID
+fs_layer = fs_item.layers[0]  
+
+# New symbology definition
+update_params = {
+    "drawingInfo": {
+        "renderer": {
+            "type": "simple",
+            "symbol": {
+                "type": "esriPMS",
+                  "url": "471E7E31",
+                  "imageData": "iVBORw0KGgoAAAANSUhEUgAAADIAAAAyCAYAAAAeP4ixAAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8YQUAAAAJcEhZcwAALiIAAC4iAari3ZIAAAaWaVRYdFhNTDpjb20uYWRvYmUueG1wAAAAAAA8P3hwYWNrZXQgYmVnaW49Iu+7vyIgaWQ9Ilc1TTBNcENlaGlIenJlU3pOVGN6a2M5ZCI/PiA8eDp4bXBtZXRhIHhtbG5zOng9ImFkb2JlOm5zOm1ldGEvIiB4OnhtcHRrPSJBZG9iZSBYTVAgQ29yZSA5LjEtYzAwMiA3OS5kYmEzZGEzLCAyMDIzLzEyLzEzLTA1OjA2OjQ5ICAgICAgICAiPiA8cmRmOlJERiB4bWxuczpyZGY9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkvMDIvMjItcmRmLXN5bnRheC1ucyMiPiA8cmRmOkRlc2NyaXB0aW9uIHJkZjphYm91dD0iIiB4bWxuczp4bXA9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC8iIHhtbG5zOmRjPSJodHRwOi8vcHVybC5vcmcvZGMvZWxlbWVudHMvMS4xLyIgeG1sbnM6cGhvdG9zaG9wPSJodHRwOi8vbnMuYWRvYmUuY29tL3Bob3Rvc2hvcC8xLjAvIiB4bWxuczp4bXBNTT0iaHR0cDovL25zLmFkb2JlLmNvbS94YXAvMS4wL21tLyIgeG1sbnM6c3RFdnQ9Imh0dHA6Ly9ucy5hZG9iZS5jb20veGFwLzEuMC9zVHlwZS9SZXNvdXJjZUV2ZW50IyIgeG1wOkNyZWF0b3JUb29sPSJBZG9iZSBQaG90b3Nob3AgMjQuMSAoV2luZG93cykiIHhtcDpDcmVhdGVEYXRlPSIyMDIyLTExLTE1VDA4OjU0OjAxLTA3OjAwIiB4bXA6TW9kaWZ5RGF0ZT0iMjAyNC0wMy0yN1QwODo0NjozMS0wNjowMCIgeG1wOk1ldGFkYXRhRGF0ZT0iMjAyNC0wMy0yN1QwODo0NjozMS0wNjowMCIgZGM6Zm9ybWF0PSJpbWFnZS9wbmciIHBob3Rvc2hvcDpDb2xvck1vZGU9IjMiIHhtcE1NOkluc3RhbmNlSUQ9InhtcC5paWQ6Zjk1M2E3NjYtNzc5My0yMjQyLTk3MTgtMTNjMWVkNDQ1NjlkIiB4bXBNTTpEb2N1bWVudElEPSJhZG9iZTpkb2NpZDpwaG90b3Nob3A6ZjA5MTk5NjQtYjA3YS04ZjQxLThjMjktYjE1MWE1MDNhZGM0IiB4bXBNTTpPcmlnaW5hbERvY3VtZW50SUQ9InhtcC5kaWQ6YzI2MmIwOWYtOTIyNi02OTQ3LWI3MDAtYzU4NGIwMmI1MGM3Ij4gPHhtcE1NOkhpc3Rvcnk+IDxyZGY6U2VxPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0iY3JlYXRlZCIgc3RFdnQ6aW5zdGFuY2VJRD0ieG1wLmlpZDpjMjYyYjA5Zi05MjI2LTY5NDctYjcwMC1jNTg0YjAyYjUwYzciIHN0RXZ0OndoZW49IjIwMjItMTEtMTVUMDg6NTQ6MDEtMDc6MDAiIHN0RXZ0OnNvZnR3YXJlQWdlbnQ9IkFkb2JlIFBob3Rvc2hvcCAyNC4xIChXaW5kb3dzKSIvPiA8cmRmOmxpIHN0RXZ0OmFjdGlvbj0ic2F2ZWQiIHN0RXZ0Omluc3RhbmNlSUQ9InhtcC5paWQ6NjIwNGNhN2ItZjYwNi0yNjRhLTg2YTItNmQ1MmI3YWI2NDVhIiBzdEV2dDp3aGVuPSIyMDIyLTEyLTI3VDEzOjU4OjI3LTA3OjAwIiBzdEV2dDpzb2Z0d2FyZUFnZW50PSJBZG9iZSBQaG90b3Nob3AgMjQuMSAoV2luZG93cykiIHN0RXZ0OmNoYW5nZWQ9Ii8iLz4gPHJkZjpsaSBzdEV2dDphY3Rpb249InNhdmVkIiBzdEV2dDppbnN0YW5jZUlEPSJ4bXAuaWlkOmY5NTNhNzY2LTc3OTMtMjI0Mi05NzE4LTEzYzFlZDQ0NTY5ZCIgc3RFdnQ6d2hlbj0iMjAyNC0wMy0yN1QwODo0NjozMS0wNjowMCIgc3RFdnQ6c29mdHdhcmVBZ2VudD0iQWRvYmUgUGhvdG9zaG9wIDI1LjYgKFdpbmRvd3MpIiBzdEV2dDpjaGFuZ2VkPSIvIi8+IDwvcmRmOlNlcT4gPC94bXBNTTpIaXN0b3J5PiA8L3JkZjpEZXNjcmlwdGlvbj4gPC9yZGY6UkRGPiA8L3g6eG1wbWV0YT4gPD94cGFja2V0IGVuZD0iciI/PmSXJpUAABJgSURBVGhD7ZoHcJzVtcd/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",
+                  "contentType": "image/png",
+                  "width": 19.5,
+                  "height": 19.5,
+                  "angle": 0,
+                  "xoffset": 0,
+                  "yoffset": 0
+            },
+            "visualVariables": [
+                {
+                    "type": "sizeInfo",
+                    "valueExpressionTitle": "Custom",
+                    "valueExpression": "$view.scale",
+                    "stops": [
+                        {"size": 35.78, "value": 18055.95},
+                        {"size": 28.62, "value": 144447.63},
+                        {"size": 14.31, "value": 1155581.10},
+                        {"size": 7.15, "value": 9244648.86}
+                    ],
+                    "axis": "height",
+                    "valueUnit": "unknown"
+                }
+            ]
+        },
+        "scaleSymbols": True,  # Boolean (not a string)
+        "transparency": 0,
+        "labelingInfo": [
+            {
+                "labelExpressionInfo": {
+                    "expression": """
+                        var mintime = Round(DateDiff(now(), $feature.time, 'minutes'), 0) + ' minutes ago';
+                        var hourtime = Round(DateDiff(now(), $feature.time, 'hours'), 0) + ' hours ago';
+                        $feature["callsign"] + TextFormatting.NewLine + 
+                        IIf(DateDiff(now(), $feature.time, 'minutes') < 120, mintime, hourtime);
+                    """,
+                    "title": "New expression"
+                },
+                "labelPlacement": "esriServerPointLabelPlacementAboveCenter",
+                "deconflictionStrategy": "static",
+                "stackLabel": True,
+                "stackAlignment": "textSymbol",
+                "removeDuplicates": "none",
+                "stackRowLength": 24,
+                "useCodedValues": True,
+                "maxScale": 0,
+                "minScale": 2720922.72,
+                "name": "Label Class 1",
+                "priority": 0,
+                "symbol": {
+                    "type": "esriTS",
+                    "color": [38, 38, 38, 255],
+                    "haloColor": [217, 217, 217, 255],
+                    "haloSize": 1.5,
+                    "font": {
+                        "family": "Arial",
+                        "size": 10,
+                        "style": "normal",
+                        "weight": "normal",
+                        "decoration": "none"
+                    }
+                }
+            }
+        ]
+    }
+}
+
+# Update the feature service definition
+response = fs_layer.manager.update_definition(update_params)
+
+# Print response
+print(response)
